@@ -13,6 +13,6 @@ public class NoticiaDTO {
     private String titulo;
     private String subtitulo;
     private String contenido;
-    private List<String> imagenes;
+    private List<String> imagenesUrl;
     private String fechaPublicacion;
 }

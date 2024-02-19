@@ -44,4 +44,16 @@ public class Contacto {
     private String mensaje;
 
     private LocalDate fechaConsulta;
+
+    @Override
+    public String toString() {
+        return "Contacto{" +
+                "asunto='" + asunto + '\'' +
+                ", nombreYApellido='" + nombreYApellido + '\'' +
+                ", email='" + email + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", mensaje='" + mensaje + '\'' +
+                ", fechaConsulta=" + fechaConsulta.toString() +
+                '}';
+    }
 }
