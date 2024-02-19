@@ -8,10 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/contacto")
@@ -30,5 +29,19 @@ public class ContactoController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/");
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+
+    //GET
+    @GetMapping("/")
+    public List<ContactoDTO> getContactos(@RequestParam(name="nombreYApellido", required = false) String nombreYApellido){
+        log.info("Se busca todos las consultas o filtra por nombre y/o apellido");
+        if (nombreYApellido == null || nombreYApellido.isBlank()){
+            return contactoService.getContactos();
+        } else {
+            if (contactoService.getContactosPorNombreApellido(nombreYApellido).isEmpty()){
+                log.info("No hay consultas con este nombre y/o apellido");
+            }
+        }
+        return contactoService.getContactosPorNombreApellido(nombreYApellido);
     }
 }

@@ -3,10 +3,12 @@ package ar.gob.chaco.subseambiente.noticias.mapper.noticia.impl;
 import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.mapper.noticia.NoticiaMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Component
 public class NoticiaMapperImpl implements NoticiaMapper {
     @Override
     public Noticia noticiaDTOtoNoticia(NoticiaDTO noticiaDTO) {
