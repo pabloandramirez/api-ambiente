@@ -1,4 +1,24 @@
 package ar.gob.chaco.subseambiente.noticias.services.contacto.impl;
 
-public class ContactoServiceImpl {
+
+import ar.gob.chaco.subseambiente.noticias.domain.Contacto;
+import ar.gob.chaco.subseambiente.noticias.mapper.contacto.ContactoMapper;
+import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
+import ar.gob.chaco.subseambiente.noticias.repository.contacto.ContactoRepository;
+import ar.gob.chaco.subseambiente.noticias.services.contacto.ContactoService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+public class ContactoServiceImpl implements ContactoService {
+
+    private final ContactoMapper contactoMapper;
+
+    private final ContactoRepository contactoRepository;
+    @Override
+    public Contacto crearContacto(ContactoDTO contactoDTO) {
+        Contacto contactoCreado = contactoMapper.contactoDTOtoContacto(contactoDTO);
+        return contactoRepository.save(contactoCreado);
+    }
 }
