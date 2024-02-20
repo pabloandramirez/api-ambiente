@@ -4,11 +4,15 @@ import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 public interface NoticiaService {
 
     //POST
     Noticia crearNoticia(@RequestBody NoticiaDTO noticiaDTO);
 
+    List<NoticiaDTO> getNoticias();
 
+    List<NoticiaDTO> getNoticiasPorTitulo(String titulo);
 
 }

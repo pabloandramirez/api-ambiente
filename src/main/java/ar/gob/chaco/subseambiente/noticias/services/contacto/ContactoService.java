@@ -5,6 +5,8 @@ import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface ContactoService {
 
@@ -15,4 +17,6 @@ public interface ContactoService {
     List<ContactoDTO> getContactos();
 
     List<ContactoDTO> getContactosPorNombreApellido(String nombreYApellido);
+
+    Optional<ContactoDTO> getContactoPorId(UUID idContacto);
 }

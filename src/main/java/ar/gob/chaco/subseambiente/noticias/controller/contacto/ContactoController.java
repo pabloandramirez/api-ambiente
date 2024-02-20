@@ -1,16 +1,19 @@
 package ar.gob.chaco.subseambiente.noticias.controller.contacto;
 
 import ar.gob.chaco.subseambiente.noticias.domain.Contacto;
+import ar.gob.chaco.subseambiente.noticias.exceptions.NotFoundException;
 import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
 import ar.gob.chaco.subseambiente.noticias.services.contacto.ContactoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/contacto")
@@ -43,5 +46,11 @@ public class ContactoController {
             }
         }
         return contactoService.getContactosPorNombreApellido(nombreYApellido);
+    }
+
+    @GetMapping("/{idContacto}")
+    public ContactoDTO getContactoPorId(@PathVariable(value = "idContacto")UUID idContacto)
+            throws NotFoundException {
+        return contactoService.getContactoPorId(idContacto).orElseThrow(NotFoundException::new);
     }
 }

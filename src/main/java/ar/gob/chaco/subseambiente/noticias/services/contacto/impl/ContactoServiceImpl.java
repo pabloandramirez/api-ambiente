@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -43,5 +45,14 @@ public class ContactoServiceImpl implements ContactoService {
             }
         }
         return contactoDTOList;
+    }
+
+    @Override
+    public Optional<ContactoDTO> getContactoPorId(UUID idContacto) {
+        Optional<Contacto> contactoOptional = contactoRepository.findById(idContacto);
+        if (contactoOptional.isPresent()){
+            return Optional.of(contactoMapper.contactoToContactoDTO(contactoOptional.get()));
+        }
+        return Optional.empty();
     }
 }
