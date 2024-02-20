@@ -2,6 +2,7 @@ package ar.gob.chaco.subseambiente.noticias.controller.noticia;
 
 
 import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
+import ar.gob.chaco.subseambiente.noticias.exceptions.NotFoundException;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import ar.gob.chaco.subseambiente.noticias.services.noticia.NoticiaService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/noticia")
@@ -45,4 +48,39 @@ public class NoticiaController {
         }
         return noticiaService.getNoticiasPorTitulo(titulo);
     }
+
+    @GetMapping("/idNoticia")
+    public NoticiaDTO getNoticiaPorId(@PathVariable(name = "idNoticia")UUID idNoticia)
+            throws NotFoundException {
+        return noticiaService.getNoticiaPorId(idNoticia).orElseThrow(NotFoundException::new);
+    }
+
+    //UPDATE
+    @PutMapping("/idNoticia")
+    public ResponseEntity<Void> actualizarNoticia(@PathVariable(name = "idNoticia") UUID idNoticia,
+                                                  @RequestBody NoticiaDTO noticiaActualizadaDTO) throws NotFoundException {
+        Optional<NoticiaDTO> noticiaDTO = noticiaService.actualizarNoticia(idNoticia, noticiaActualizadaDTO);
+        if (noticiaDTO.isEmpty()){
+            log.info("Noticia no encontrada");
+            throw new NotFoundException();
+        } else {
+            log.info("Noticia actualizada");
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    //DELETE
+    @DeleteMapping("/{idNoticia}")
+    public ResponseEntity<Void> borrarNoticia(@PathVariable(name = "idNoticia") UUID idNoticia) throws NotFoundException {
+        boolean isNoticiaBorrada = noticiaService.borrarNoticia(idNoticia);
+        if (isNoticiaBorrada){
+            log.info("Noticia eliminada");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            log.info("Noticia no encontrada");
+            throw new NotFoundException();
+        }
+    }
+
+
 }

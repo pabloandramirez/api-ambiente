@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -52,5 +53,19 @@ public class ContactoController {
     public ContactoDTO getContactoPorId(@PathVariable(value = "idContacto")UUID idContacto)
             throws NotFoundException {
         return contactoService.getContactoPorId(idContacto).orElseThrow(NotFoundException::new);
+    }
+
+    //DELETE
+    @DeleteMapping("/idContacto")
+    public ResponseEntity<Void> borrarConsulta(@PathVariable(name = "idContacto") UUID idContacto)
+            throws NotFoundException {
+        boolean isContactoBorrado = contactoService.borrarContacto(idContacto);
+        if (isContactoBorrado){
+            log.info("Se elimino la consulta");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            log.info("Consulta no encontrada");
+            throw new NotFoundException();
+        }
     }
 }

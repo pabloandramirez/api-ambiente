@@ -55,4 +55,14 @@ public class ContactoServiceImpl implements ContactoService {
         }
         return Optional.empty();
     }
+
+    @Override
+    public boolean borrarContacto(UUID idContacto) {
+        if (contactoRepository.existsById(idContacto)){
+            contactoRepository.deleteById(idContacto);
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -19,4 +19,7 @@ public interface ContactoService {
     List<ContactoDTO> getContactosPorNombreApellido(String nombreYApellido);
 
     Optional<ContactoDTO> getContactoPorId(UUID idContacto);
+
+    //DELETE
+    boolean borrarContacto(UUID idContacto);
 }

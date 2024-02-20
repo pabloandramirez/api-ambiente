@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -43,5 +45,53 @@ public class NoticiaServiceImpl implements NoticiaService {
             }
         }
         return noticiaDTOList;
+    }
+
+    @Override
+    public Optional<NoticiaDTO> getNoticiaPorId(UUID idNoticia) {
+        Optional<Noticia> noticiaOptional = noticiaRepository.findById(idNoticia);
+        if (noticiaOptional.isPresent()){
+            return Optional.of(noticiaMapper.noticiaToNoticiaDTO(noticiaOptional.get()));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<NoticiaDTO> actualizarNoticia(UUID idNoticia, NoticiaDTO noticiaActualizadaDTO) {
+        Optional<Noticia> noticiaOptional = noticiaRepository.findById(idNoticia);
+        if (noticiaOptional.isPresent()){
+            actualizacionNoticia(noticiaOptional.get(), noticiaActualizadaDTO);
+            noticiaRepository.saveAndFlush(noticiaOptional.get());
+            return Optional.of(noticiaMapper.noticiaToNoticiaDTO(noticiaOptional.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public boolean borrarNoticia(UUID idNoticia) {
+        if (noticiaRepository.existsById(idNoticia)){
+            noticiaRepository.deleteById(idNoticia);
+            return true;
+        }
+        return false;
+    }
+
+    private void actualizacionNoticia(Noticia noticia, NoticiaDTO noticiaActualizadaDTO){
+        if (noticiaActualizadaDTO.getTitulo() != null && !noticiaActualizadaDTO.getTitulo().isBlank()){
+            noticia.setTitulo(noticiaActualizadaDTO.getTitulo());
+        }
+
+        if (noticiaActualizadaDTO.getSubtitulo() != null && !noticiaActualizadaDTO.getSubtitulo().isBlank()){
+            noticia.setSubtitulo(noticiaActualizadaDTO.getSubtitulo());
+        }
+
+        if (noticiaActualizadaDTO.getContenido() != null && !noticiaActualizadaDTO.getContenido().isBlank()){
+            noticia.setContenido(noticiaActualizadaDTO.getContenido());
+        }
+
+        if (noticiaActualizadaDTO.getImagenesUrl() != null && !noticiaActualizadaDTO.getImagenesUrl().isEmpty()){
+            noticia.setImagenesUrl(noticiaActualizadaDTO.getImagenesUrl());
+        }
     }
 }
