@@ -37,7 +37,7 @@ public class ContactoMapperImpl implements ContactoMapper {
 
 
     private String getLocalDate(LocalDate localDate){
-        return localDate.getDayOfYear() +
+        return localDate.getDayOfMonth() +
                 "/" +
                 localDate.getMonthValue() +
                 "/" +

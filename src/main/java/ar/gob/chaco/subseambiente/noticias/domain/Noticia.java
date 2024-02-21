@@ -37,7 +37,7 @@ public class Noticia {
 
     @Column(length = 500, columnDefinition = "varchar(500)", updatable = true, nullable = false)
     private String contenido;
-    
+
     private List<String> imagenesUrl = new ArrayList<>();
 
     private LocalDate fechaPublicacion;

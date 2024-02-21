@@ -34,10 +34,10 @@ public class NoticiaMapperImpl implements NoticiaMapper {
     }
 
     private String getLocalDate(LocalDate localDate){
-        return localDate.getYear() +
+        return localDate.getDayOfMonth() +
                 "/" +
                 localDate.getMonthValue() +
                 "/" +
-                localDate.getDayOfYear();
+                localDate.getYear();
     }
 }
