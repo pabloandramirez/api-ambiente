@@ -9,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -40,7 +40,7 @@ public class Noticia {
 
     private List<String> imagenesUrl = new ArrayList<>();
 
-    private LocalDate fechaPublicacion;
+    private LocalDateTime fechaPublicacion;
 
     @Override
     public String toString() {

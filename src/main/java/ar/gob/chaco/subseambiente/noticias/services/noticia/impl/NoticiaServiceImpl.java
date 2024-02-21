@@ -8,10 +8,7 @@ import ar.gob.chaco.subseambiente.noticias.services.noticia.NoticiaService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -33,6 +30,7 @@ public class NoticiaServiceImpl implements NoticiaService {
         for (Noticia noticia: noticiaRepository.findAll()){
             noticiaDTOList.add(noticiaMapper.noticiaToNoticiaDTO(noticia));
         }
+        noticiaDTOList.sort(Comparator.comparing(NoticiaDTO::getFechaPublicacion).reversed());
         return noticiaDTOList;
     }
 

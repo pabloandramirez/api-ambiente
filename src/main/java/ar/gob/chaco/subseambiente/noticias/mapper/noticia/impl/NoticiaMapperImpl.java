@@ -5,7 +5,8 @@ import ar.gob.chaco.subseambiente.noticias.mapper.noticia.NoticiaMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Component
@@ -18,7 +19,7 @@ public class NoticiaMapperImpl implements NoticiaMapper {
                 .subtitulo(noticiaDTO.getSubtitulo())
                 .contenido(noticiaDTO.getContenido())
                 .imagenesUrl(noticiaDTO.getImagenesUrl())
-                .fechaPublicacion(LocalDate.now())
+                .fechaPublicacion(LocalDateTime.now())
                 .build();
     }
 
@@ -33,11 +34,9 @@ public class NoticiaMapperImpl implements NoticiaMapper {
                 .build();
     }
 
-    private String getLocalDate(LocalDate localDate){
-        return localDate.getDayOfMonth() +
-                "/" +
-                localDate.getMonthValue() +
-                "/" +
-                localDate.getYear();
+    private String getLocalDate(LocalDateTime localDateTime){
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        return localDateTime.format(formato);
     }
 }
