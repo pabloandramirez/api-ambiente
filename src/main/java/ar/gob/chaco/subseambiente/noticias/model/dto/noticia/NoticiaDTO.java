@@ -15,4 +15,5 @@ public class NoticiaDTO {
     private String contenido;
     private List<String> imagenesUrl;
     private String fechaPublicacion;
+    private long identificador;
 }

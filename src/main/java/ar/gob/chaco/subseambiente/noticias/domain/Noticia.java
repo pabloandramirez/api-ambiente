@@ -1,9 +1,6 @@
 package ar.gob.chaco.subseambiente.noticias.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -20,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Builder
+@IdClass(NoticiaId.class)
 public class Noticia {
 
     @Id
@@ -37,6 +35,11 @@ public class Noticia {
 
     @Column(length = 500, columnDefinition = "varchar(500)", updatable = true, nullable = false)
     private String contenido;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(length = 10, columnDefinition = "INTEGER", updatable = true, nullable = false)
+    private long id;
 
     private List<String> imagenesUrl = new ArrayList<>();
 

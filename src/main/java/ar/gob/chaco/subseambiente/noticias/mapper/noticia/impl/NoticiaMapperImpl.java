@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.OptionalLong;
 import java.util.UUID;
+
 
 @Component
 public class NoticiaMapperImpl implements NoticiaMapper {
@@ -31,6 +33,7 @@ public class NoticiaMapperImpl implements NoticiaMapper {
                 .contenido(noticia.getContenido())
                 .imagenesUrl(noticia.getImagenesUrl())
                 .fechaPublicacion(getLocalDate(noticia.getFechaPublicacion()))
+                .identificador(noticia.getId())
                 .build();
     }
 
