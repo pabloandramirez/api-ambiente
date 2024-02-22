@@ -1,9 +1,11 @@
 package ar.gob.chaco.subseambiente.noticias.controller.noticia;
 
 
+import ar.gob.chaco.subseambiente.noticias.domain.IdNoticia;
 import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.exceptions.NotFoundException;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
+import ar.gob.chaco.subseambiente.noticias.repository.noticia.IdNoticiaRepository;
 import ar.gob.chaco.subseambiente.noticias.services.noticia.NoticiaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +25,14 @@ import java.util.UUID;
 public class NoticiaController {
 
     private final NoticiaService noticiaService;
+    private final IdNoticiaRepository idNoticiaRepository;
 
     //POST
     @PostMapping
     public ResponseEntity<Void> crearNoticia(@RequestBody NoticiaDTO noticiaDTO){
         log.info("Creando una nueva noticia");
         Noticia noticiaCreada = noticiaService.crearNoticia(noticiaDTO);
+
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/" + noticiaCreada.getUuid());

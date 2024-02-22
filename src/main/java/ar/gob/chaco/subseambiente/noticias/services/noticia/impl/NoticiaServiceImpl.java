@@ -1,8 +1,10 @@
 package ar.gob.chaco.subseambiente.noticias.services.noticia.impl;
 
+import ar.gob.chaco.subseambiente.noticias.domain.IdNoticia;
 import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.mapper.noticia.NoticiaMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
+import ar.gob.chaco.subseambiente.noticias.repository.noticia.IdNoticiaRepository;
 import ar.gob.chaco.subseambiente.noticias.repository.noticia.NoticiaRepository;
 import ar.gob.chaco.subseambiente.noticias.services.noticia.NoticiaService;
 import lombok.AllArgsConstructor;
@@ -18,9 +20,13 @@ public class NoticiaServiceImpl implements NoticiaService {
 
     private final NoticiaMapper noticiaMapper;
 
+    private final IdNoticiaRepository idNoticiaRepository;
+
     @Override
     public Noticia crearNoticia(NoticiaDTO noticiaDTO) {
         Noticia noticiaCreada = noticiaMapper.noticiaDTOtoNoticia(noticiaDTO);
+        IdNoticia idNoticia = idNoticiaRepository.save(IdNoticia.builder().build());
+        noticiaCreada.setIdNoticia(idNoticia);
         return noticiaRepository.save(noticiaCreada);
     }
 

@@ -1,5 +1,6 @@
 package ar.gob.chaco.subseambiente.noticias.mapper.noticia.impl;
 
+import ar.gob.chaco.subseambiente.noticias.domain.IdNoticia;
 import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.mapper.noticia.NoticiaMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
@@ -33,7 +34,6 @@ public class NoticiaMapperImpl implements NoticiaMapper {
                 .contenido(noticia.getContenido())
                 .imagenesUrl(noticia.getImagenesUrl())
                 .fechaPublicacion(getLocalDate(noticia.getFechaPublicacion()))
-                .identificador(noticia.getId())
                 .build();
     }
 

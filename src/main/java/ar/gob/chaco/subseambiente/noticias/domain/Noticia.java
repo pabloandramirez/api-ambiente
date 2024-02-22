@@ -17,7 +17,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Builder
-@IdClass(NoticiaId.class)
 public class Noticia {
 
     @Id
@@ -36,14 +35,13 @@ public class Noticia {
     @Column(length = 500, columnDefinition = "varchar(500)", updatable = true, nullable = false)
     private String contenido;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(length = 10, columnDefinition = "INTEGER", updatable = true, nullable = false)
-    private long id;
-
     private List<String> imagenesUrl = new ArrayList<>();
 
     private LocalDateTime fechaPublicacion;
+
+    @OneToOne
+    @JoinColumn(name = "idNoticia_id")
+    private IdNoticia idNoticia;
 
     @Override
     public String toString() {
