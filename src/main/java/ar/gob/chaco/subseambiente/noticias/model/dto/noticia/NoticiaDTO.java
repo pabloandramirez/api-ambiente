@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class NoticiaDTO {
+    private Long identificador;
     private String titulo;
     private String subtitulo;
     private String contenido;

@@ -1,6 +1,5 @@
 package ar.gob.chaco.subseambiente.noticias.mapper.noticia.impl;
 
-import ar.gob.chaco.subseambiente.noticias.domain.IdNoticia;
 import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.mapper.noticia.NoticiaMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.OptionalLong;
 import java.util.UUID;
 
 
@@ -29,6 +27,7 @@ public class NoticiaMapperImpl implements NoticiaMapper {
     @Override
     public NoticiaDTO noticiaToNoticiaDTO(Noticia noticia) {
         return NoticiaDTO.builder()
+                .identificador(noticia.getIdNoticia().getId())
                 .titulo(noticia.getTitulo())
                 .subtitulo(noticia.getSubtitulo())
                 .contenido(noticia.getContenido())
