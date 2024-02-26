@@ -53,10 +53,16 @@ public class NoticiaController {
         return noticiaService.getNoticiasPorTitulo(titulo);
     }
 
-    @GetMapping("/idNoticia")
+    @GetMapping("/{idNoticia}")
     public NoticiaDTO getNoticiaPorId(@PathVariable(name = "idNoticia")UUID idNoticia)
             throws NotFoundException {
         return noticiaService.getNoticiaPorId(idNoticia).orElseThrow(NotFoundException::new);
+    }
+
+    @GetMapping("/noticiaPorLong/{idLong}")
+    public NoticiaDTO getNoticiaPorLong(@PathVariable("idLong") Long idLong)
+            throws NotFoundException {
+        return noticiaService.getNoticiaPorLong(idLong).orElseThrow(NotFoundException::new);
     }
 
     //UPDATE

@@ -19,7 +19,7 @@ public class IdNoticia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long identificador;
 
     @OneToOne(mappedBy = "idNoticia")
     private Noticia noticia;

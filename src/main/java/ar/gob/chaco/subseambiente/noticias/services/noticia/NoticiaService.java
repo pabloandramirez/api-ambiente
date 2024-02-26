@@ -20,6 +20,8 @@ public interface NoticiaService {
 
     Optional<NoticiaDTO> getNoticiaPorId(UUID idNoticia);
 
+    Optional<NoticiaDTO> getNoticiaPorLong(Long idLong);
+
     //PUT
     Optional<NoticiaDTO> actualizarNoticia(UUID idNoticia, NoticiaDTO noticiaActualizadaDTO);
 

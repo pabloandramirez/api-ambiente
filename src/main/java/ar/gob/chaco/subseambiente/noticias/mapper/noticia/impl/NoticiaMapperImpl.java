@@ -27,7 +27,7 @@ public class NoticiaMapperImpl implements NoticiaMapper {
     @Override
     public NoticiaDTO noticiaToNoticiaDTO(Noticia noticia) {
         return NoticiaDTO.builder()
-                .identificador(noticia.getIdNoticia().getId())
+                .identificador(noticia.getIdNoticia().getIdentificador())
                 .titulo(noticia.getTitulo())
                 .subtitulo(noticia.getSubtitulo())
                 .contenido(noticia.getContenido())
