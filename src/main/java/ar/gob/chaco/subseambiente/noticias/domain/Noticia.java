@@ -29,7 +29,7 @@ public class Noticia {
     @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
     private String titulo;
 
-    @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
+    @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = false)
     private String subtitulo;
 
     @Column(length = 500, columnDefinition = "varchar(500)", updatable = true, nullable = false)

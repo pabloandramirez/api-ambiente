@@ -85,6 +85,10 @@ public class NoticiaServiceImpl implements NoticiaService {
     public boolean borrarNoticia(UUID idNoticia) {
         if (noticiaRepository.existsById(idNoticia)){
             noticiaRepository.deleteById(idNoticia);
+            Optional<Noticia> noticiaOptional = noticiaRepository.findById(idNoticia);
+            if (noticiaOptional.isPresent()){
+                idNoticiaRepository.deleteById(noticiaOptional.get().getIdNoticia().getIdentificador());
+            }
             return true;
         }
         return false;
