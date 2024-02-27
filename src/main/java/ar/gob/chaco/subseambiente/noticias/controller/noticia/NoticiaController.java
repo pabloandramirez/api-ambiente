@@ -66,7 +66,7 @@ public class NoticiaController {
     }
 
     //UPDATE
-    @PutMapping("/idNoticia")
+    @PutMapping("/{idNoticia}")
     public ResponseEntity<Void> actualizarNoticia(@PathVariable(name = "idNoticia") UUID idNoticia,
                                                   @RequestBody NoticiaDTO noticiaActualizadaDTO) throws NotFoundException {
         Optional<NoticiaDTO> noticiaDTO = noticiaService.actualizarNoticia(idNoticia, noticiaActualizadaDTO);

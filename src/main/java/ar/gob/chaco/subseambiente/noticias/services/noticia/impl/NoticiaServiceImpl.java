@@ -10,6 +10,8 @@ import ar.gob.chaco.subseambiente.noticias.services.noticia.NoticiaService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -110,5 +112,14 @@ public class NoticiaServiceImpl implements NoticiaService {
         if (noticiaActualizadaDTO.getImagenesUrl() != null && !noticiaActualizadaDTO.getImagenesUrl().isEmpty()){
             noticia.setImagenesUrl(noticiaActualizadaDTO.getImagenesUrl());
         }
+
+        if (noticiaActualizadaDTO.getFechaPublicacion() != null && !noticiaActualizadaDTO.getFechaPublicacion().isBlank()){
+            noticia.setFechaPublicacion(getLocalDate(noticiaActualizadaDTO.getFechaPublicacion()));
+        }
+    }
+
+    private LocalDateTime getLocalDate(String localDate){
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return LocalDateTime.parse(localDate, formato);
     }
 }
