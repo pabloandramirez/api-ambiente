@@ -1,7 +1,6 @@
 package ar.gob.chaco.subseambiente.noticias.controller.noticia;
 
 
-import ar.gob.chaco.subseambiente.noticias.domain.IdNoticia;
 import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.exceptions.NotFoundException;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
