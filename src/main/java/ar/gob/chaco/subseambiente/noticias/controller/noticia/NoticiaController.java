@@ -46,10 +46,23 @@ public class NoticiaController {
             return noticiaService.getNoticias();
         } else {
             if (noticiaService.getNoticiasPorTitulo(titulo).isEmpty()){
-                log.info("No hay noticiasa con este titulo");
+                log.info("No hay noticias con este titulo");
             }
         }
         return noticiaService.getNoticiasPorTitulo(titulo);
+    }
+
+    @GetMapping("/paginado")
+    public List<NoticiaDTO> getNoticiasPaginado(@RequestParam(name = "pagina", required = true) int pagina,
+                                                @RequestParam(name = "noticiasPorPagina", required = true) int noticiasPorPagina){
+        log.info("Se muestra las noticias en formato de paginado");
+        // Calcular el índice de inicio de las noticias en función de la página y la cantidad de noticias por página
+        int indiceInicio = (pagina - 1) * noticiasPorPagina;
+
+        // Obtener las noticias para la página actual
+
+        return noticiaService.getNoticiasPaginadas(indiceInicio, noticiasPorPagina);
+
     }
 
     @GetMapping("/{idNoticia}")

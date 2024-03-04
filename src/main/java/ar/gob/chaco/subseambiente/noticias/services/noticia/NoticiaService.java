@@ -27,4 +27,6 @@ public interface NoticiaService {
 
     //DELETE
     boolean borrarNoticia(UUID idNoticia);
+
+    List<NoticiaDTO> getNoticiasPaginadas(int indiceInicio, int noticiasPorPagina);
 }

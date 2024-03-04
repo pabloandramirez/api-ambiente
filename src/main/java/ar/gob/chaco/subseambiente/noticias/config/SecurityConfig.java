@@ -20,7 +20,8 @@ public class SecurityConfig{
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
                     .requestMatchers("/api/user/**").hasRole("USER")
                     .requestMatchers("/noticia/").permitAll()
-                    .requestMatchers("/noticia/noticiaPorLong/{idLong}").permitAll()
+                    .requestMatchers("/noticia/noticiaPorLong/**").permitAll()
+                    .requestMatchers("/noticia/paginado**").permitAll()
                     .anyRequest().authenticated()
             )
             .httpBasic(withDefaults());

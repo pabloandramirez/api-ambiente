@@ -96,6 +96,24 @@ public class NoticiaServiceImpl implements NoticiaService {
         return false;
     }
 
+    @Override
+    public List<NoticiaDTO> getNoticiasPaginadas(int indiceInicio, int noticiasPorPagina) {
+        // Obtener todas las noticias desde la base de datos
+        List<NoticiaDTO> todasLasNoticias = new ArrayList<>(); // Suponiendo que utilizas Spring Data JPA
+
+        for (Noticia noticia: noticiaRepository.findAll()) {
+            todasLasNoticias.add(noticiaMapper.noticiaToNoticiaDTO(noticia));
+        }
+
+        todasLasNoticias.sort(Comparator.comparing(NoticiaDTO::getFechaPublicacion).reversed());
+
+        // Calcular el índice final de las noticias en función de la página y la cantidad de noticias por página
+        int indiceFinal = Math.min(indiceInicio + noticiasPorPagina, todasLasNoticias.size());
+
+        // Devolver las noticias correspondientes a la página solicitada
+        return todasLasNoticias.subList(indiceInicio, indiceFinal);
+    }
+
     private void actualizacionNoticia(Noticia noticia, NoticiaDTO noticiaActualizadaDTO){
         if (noticiaActualizadaDTO.getTitulo() != null && !noticiaActualizadaDTO.getTitulo().isBlank()){
             noticia.setTitulo(noticiaActualizadaDTO.getTitulo());
