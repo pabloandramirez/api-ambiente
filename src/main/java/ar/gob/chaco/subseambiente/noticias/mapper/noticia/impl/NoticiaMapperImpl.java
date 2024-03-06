@@ -32,7 +32,8 @@ public class NoticiaMapperImpl implements NoticiaMapper {
                 .subtitulo(noticia.getSubtitulo())
                 .contenido(noticia.getContenido())
                 .imagenesUrl(noticia.getImagenesUrl())
-                .fechaPublicacion(getLocalDate(noticia.getFechaPublicacion()))
+                .fechaPublicacionString(getLocalDate(noticia.getFechaPublicacion()))
+                .fechaPublicacionDate(noticia.getFechaPublicacion())
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package ar.gob.chaco.subseambiente.noticias.config;
 
+/*
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-/*
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig{

@@ -38,7 +38,7 @@ public class NoticiaServiceImpl implements NoticiaService {
         for (Noticia noticia: noticiaRepository.findAll()){
             noticiaDTOList.add(noticiaMapper.noticiaToNoticiaDTO(noticia));
         }
-        noticiaDTOList.sort(Comparator.comparing(NoticiaDTO::getFechaPublicacion).reversed());
+        noticiaDTOList.sort(Comparator.comparing(NoticiaDTO::getFechaPublicacionDate).reversed());
         return noticiaDTOList;
     }
 
@@ -105,7 +105,7 @@ public class NoticiaServiceImpl implements NoticiaService {
             todasLasNoticias.add(noticiaMapper.noticiaToNoticiaDTO(noticia));
         }
 
-        todasLasNoticias.sort(Comparator.comparing(NoticiaDTO::getFechaPublicacion).reversed());
+        todasLasNoticias.sort(Comparator.comparing(NoticiaDTO::getFechaPublicacionDate).reversed());
 
         // Calcular el índice final de las noticias en función de la página y la cantidad de noticias por página
         int indiceFinal = Math.min(indiceInicio + noticiasPorPagina, todasLasNoticias.size());
@@ -131,8 +131,8 @@ public class NoticiaServiceImpl implements NoticiaService {
             noticia.setImagenesUrl(noticiaActualizadaDTO.getImagenesUrl());
         }
 
-        if (noticiaActualizadaDTO.getFechaPublicacion() != null && !noticiaActualizadaDTO.getFechaPublicacion().isBlank()){
-            noticia.setFechaPublicacion(getLocalDate(noticiaActualizadaDTO.getFechaPublicacion()));
+        if (noticiaActualizadaDTO.getFechaPublicacionString() != null && !noticiaActualizadaDTO.getFechaPublicacionString().isBlank()){
+            noticia.setFechaPublicacion(getLocalDate(noticiaActualizadaDTO.getFechaPublicacionString()));
         }
     }
 

@@ -2,6 +2,7 @@ package ar.gob.chaco.subseambiente.noticias.model.dto.noticia;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -15,5 +16,6 @@ public class NoticiaDTO {
     private String subtitulo;
     private String contenido;
     private List<String> imagenesUrl;
-    private String fechaPublicacion;
+    private String fechaPublicacionString;
+    private LocalDateTime fechaPublicacionDate;
 }
