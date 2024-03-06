@@ -60,6 +60,11 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>6.2.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope> <!-- Asegúrate de que esté en el alcance de pruebas -->
+		</dependency>
 	</dependencies>
 
 	<build>

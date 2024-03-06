@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class NoticiaController {
     private final IdNoticiaRepository idNoticiaRepository;
 
     //POST
-    @PostMapping
+    @PostMapping(path = "/nueva_noticia", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> crearNoticia(@RequestBody NoticiaDTO noticiaDTO){
         log.info("Creando una nueva noticia");
         Noticia noticiaCreada = noticiaService.crearNoticia(noticiaDTO);
