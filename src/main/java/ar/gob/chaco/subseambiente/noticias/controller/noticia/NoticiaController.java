@@ -12,6 +12,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +30,8 @@ public class NoticiaController {
     private final IdNoticiaRepository idNoticiaRepository;
 
     //POST
-    @PostMapping(path = "/nueva_noticia", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PostMapping(path = "/nuevaNoticia")
     public ResponseEntity<Void> crearNoticia(@RequestBody NoticiaDTO noticiaDTO){
         log.info("Creando una nueva noticia");
         Noticia noticiaCreada = noticiaService.crearNoticia(noticiaDTO);
