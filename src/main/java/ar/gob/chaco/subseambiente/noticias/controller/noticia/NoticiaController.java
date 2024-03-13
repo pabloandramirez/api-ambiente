@@ -30,7 +30,6 @@ public class NoticiaController {
     private final IdNoticiaRepository idNoticiaRepository;
 
     //POST
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PostMapping(path = "/nuevaNoticia")
     public ResponseEntity<Void> crearNoticia(@RequestBody NoticiaDTO noticiaDTO){
         log.info("Creando una nueva noticia");
