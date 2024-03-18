@@ -6,6 +6,8 @@ import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Component
@@ -19,7 +21,7 @@ public class ContactoMapperImpl implements ContactoMapper {
                 .email(contactoDTO.getEmail())
                 .telefono(contactoDTO.getTelefono())
                 .mensaje(contactoDTO.getMensaje())
-                .fechaConsulta(LocalDate.now())
+                .fechaConsulta(LocalDateTime.now())
                 .build();
     }
 
@@ -36,11 +38,9 @@ public class ContactoMapperImpl implements ContactoMapper {
     }
 
 
-    private String getLocalDate(LocalDate localDate){
-        return localDate.getDayOfMonth() +
-                "/" +
-                localDate.getMonthValue() +
-                "/" +
-                localDate.getYear();
+    private String getLocalDate(LocalDateTime localDateTime){
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return localDateTime.format(formato);
     }
 }

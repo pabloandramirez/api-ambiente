@@ -11,6 +11,7 @@ import org.hibernate.type.SqlTypes;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -43,7 +44,7 @@ public class Contacto {
     @Column(length = 500, columnDefinition = "varchar(500)", updatable = true, nullable = false)
     private String mensaje;
 
-    private LocalDate fechaConsulta;
+    private LocalDateTime fechaConsulta;
 
     @Override
     public String toString() {
