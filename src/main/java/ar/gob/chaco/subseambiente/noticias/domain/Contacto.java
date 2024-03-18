@@ -34,7 +34,7 @@ public class Contacto {
     @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
     private String nombreYApellido;
 
-    @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
+    @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = true)
     private String email;
 
     @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)

@@ -38,7 +38,7 @@ public class NoticiaMapperImpl implements NoticiaMapper {
     }
 
     private String getLocalDate(LocalDateTime localDateTime){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         return localDateTime.format(formato);
     }

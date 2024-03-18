@@ -15,7 +15,11 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -26,13 +30,21 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                    .requestMatchers("/noticia/").permitAll()
-                    .requestMatchers("/noticia/noticiaPorLong/**").permitAll()
-                    .requestMatchers("/noticia/paginado**").permitAll()
-                    .anyRequest().authenticated()
+                        .requestMatchers("/noticia/").permitAll()
+                        .requestMatchers("/noticia/noticiaPorLong/**").permitAll()
+                        .requestMatchers("/noticia/paginado**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/contacto").permitAll()
+                        .anyRequest().authenticated()
                 )
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration configuration = new CorsConfiguration();
+                    configuration.setAllowedOrigins(List.of("*"));
+                    configuration.setAllowedMethods(List.of("*"));
+                    configuration.setAllowedHeaders(List.of("*"));
+                    return configuration;
+                }))
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> {
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
