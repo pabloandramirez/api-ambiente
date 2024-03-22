@@ -39,7 +39,7 @@ public class ContactoMapperImpl implements ContactoMapper {
 
 
     private String getLocalDate(LocalDateTime localDateTime){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
 
         return localDateTime.format(formato);
     }

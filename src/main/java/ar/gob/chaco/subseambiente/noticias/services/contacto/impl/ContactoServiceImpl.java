@@ -4,15 +4,13 @@ package ar.gob.chaco.subseambiente.noticias.services.contacto.impl;
 import ar.gob.chaco.subseambiente.noticias.domain.Contacto;
 import ar.gob.chaco.subseambiente.noticias.mapper.contacto.ContactoMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
+import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import ar.gob.chaco.subseambiente.noticias.repository.contacto.ContactoRepository;
 import ar.gob.chaco.subseambiente.noticias.services.contacto.ContactoService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -33,6 +31,7 @@ public class ContactoServiceImpl implements ContactoService {
         for (Contacto contacto: contactoRepository.findAll()){
             contactoDTOList.add(contactoMapper.contactoToContactoDTO(contacto));
         }
+        contactoDTOList.sort(Comparator.comparing(ContactoDTO::getFechaConsulta).reversed());
         return contactoDTOList;
     }
 
