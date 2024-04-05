@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -54,8 +55,8 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.setUsuario(usuarioActualizadoDTO.getUsuario());
         }
 
-        if (usuarioActualizadoDTO.getRol() != null && !usuarioActualizadoDTO.getRol().isBlank()){
-            usuario.setRol(Role.valueOf(usuarioActualizadoDTO.getRol()));
+        if (usuarioActualizadoDTO.getRoles() != null && !usuarioActualizadoDTO.getRoles().isEmpty()){
+            usuario.setRoles(usuarioActualizadoDTO.getRoles().stream().map(Role::valueOf).collect(Collectors.toList()));
         }
     }
 }

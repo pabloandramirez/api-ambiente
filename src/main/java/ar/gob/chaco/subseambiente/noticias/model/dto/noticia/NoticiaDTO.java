@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class NoticiaDTO {
+    private String id;
     private Long identificador;
     private String titulo;
     private String subtitulo;

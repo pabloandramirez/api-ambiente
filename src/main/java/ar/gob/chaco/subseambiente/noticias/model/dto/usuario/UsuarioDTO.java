@@ -2,6 +2,8 @@ package ar.gob.chaco.subseambiente.noticias.model.dto.usuario;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -9,5 +11,6 @@ import lombok.*;
 @Builder
 public class UsuarioDTO {
     private String usuario;
-    private String rol;
+    private String password;
+    private List<String> roles;
 }
