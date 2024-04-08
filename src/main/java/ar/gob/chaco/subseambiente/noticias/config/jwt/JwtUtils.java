@@ -48,9 +48,15 @@ public class JwtUtils {
         }
     }
 
+    //Obtener el username del token
+    public String getUsernameFromToken(String token){
+        return getClaim(token, Claims::getSubject);
+    }
+
     //Obtener un solo claim
-    public <T> T getClaim(String token, Function<Claims, T>){
-        
+    public <T> T getClaim(String token, Function<Claims, T> claimsTFunction){
+        Claims claims = extractAllClaims(token);
+        return claimsTFunction.apply(claims);
     }
 
     //Obtener todos los claims del token

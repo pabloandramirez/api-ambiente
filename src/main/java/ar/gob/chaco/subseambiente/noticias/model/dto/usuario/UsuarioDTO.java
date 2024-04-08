@@ -2,7 +2,7 @@ package ar.gob.chaco.subseambiente.noticias.model.dto.usuario;
 
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,5 +12,5 @@ import java.util.List;
 public class UsuarioDTO {
     private String usuario;
     private String password;
-    private List<String> roles;
+    private Set<String> roles;
 }

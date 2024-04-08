@@ -2,6 +2,7 @@ package ar.gob.chaco.subseambiente.noticias.controller.usuario;
 
 import ar.gob.chaco.subseambiente.noticias.domain.Usuario;
 import ar.gob.chaco.subseambiente.noticias.exceptions.NotFoundException;
+import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import ar.gob.chaco.subseambiente.noticias.model.dto.usuario.UsuarioDTO;
 import ar.gob.chaco.subseambiente.noticias.services.usuario.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -9,20 +10,38 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/usuario")
 @RequiredArgsConstructor
 @Slf4j
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
+    //GET
+    @GetMapping("/")
+    public List<UsuarioDTO> getUsuarios(@RequestParam(name = "name", required = false) String nombre){
+        log.info("Busca por nombre, si no encuentra muestra todos");
+        if (nombre == null || nombre.isBlank()){
+            return usuarioService.getUsuarios();
+        } else {
+            if (usuarioService.getUsuarioPorNombre(nombre).isEmpty()){
+                log.info("No hay usuarios con este nombre: " + nombre);
+            }
+        }
+        return usuarioService.getUsuarioPorNombre(nombre);
+    }
+
     //POST
     @PostMapping("/crearUsuario")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> crearUsuario(@RequestBody UsuarioDTO usuarioDTO){
         log.info("Creando un nuevo usuario");
         Usuario usuarioCreado = usuarioService.crearUsuario(usuarioDTO);
@@ -34,6 +53,7 @@ public class UsuarioController {
 
     //DELETE
     @DeleteMapping("/eliminarUsuario/{idUsuario}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable(name = "idUsuario")UUID idUsuario)
             throws NotFoundException {
         boolean isUsuarioBorrado = usuarioService.borrarNoticia(idUsuario);
@@ -49,6 +69,7 @@ public class UsuarioController {
 
     //PUT
     @PutMapping("/actualizarUsuario/{idUsuario}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> actualizarUsuario(@PathVariable(name = "idUsuario") UUID idUsuario,
                                                   @RequestBody UsuarioDTO usuarioActualizadoDTO)
             throws NotFoundException {

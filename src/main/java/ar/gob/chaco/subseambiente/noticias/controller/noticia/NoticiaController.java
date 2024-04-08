@@ -31,6 +31,7 @@ public class NoticiaController {
 
     //POST
     @PostMapping(path = "/nuevaNoticia")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> crearNoticia(@RequestBody NoticiaDTO noticiaDTO){
         log.info("Creando una nueva noticia");
         Noticia noticiaCreada = noticiaService.crearNoticia(noticiaDTO);
@@ -82,6 +83,7 @@ public class NoticiaController {
 
     //UPDATE
     @PutMapping("/{idNoticia}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> actualizarNoticia(@PathVariable(name = "idNoticia") UUID idNoticia,
                                                   @RequestBody NoticiaDTO noticiaActualizadaDTO) throws NotFoundException {
         Optional<NoticiaDTO> noticiaDTO = noticiaService.actualizarNoticia(idNoticia, noticiaActualizadaDTO);
@@ -96,6 +98,7 @@ public class NoticiaController {
 
     //DELETE
     @DeleteMapping("/{idNoticia}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> borrarNoticia(@PathVariable(name = "idNoticia") UUID idNoticia) throws NotFoundException {
         boolean isNoticiaBorrada = noticiaService.borrarNoticia(idNoticia);
         if (isNoticiaBorrada){

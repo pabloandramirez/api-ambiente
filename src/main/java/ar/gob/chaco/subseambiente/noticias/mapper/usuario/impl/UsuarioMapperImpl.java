@@ -4,6 +4,7 @@ import ar.gob.chaco.subseambiente.noticias.bootstrap.enums.Role;
 import ar.gob.chaco.subseambiente.noticias.domain.Usuario;
 import ar.gob.chaco.subseambiente.noticias.mapper.usuario.UsuarioMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.usuario.UsuarioDTO;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -12,9 +13,9 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
+@AllArgsConstructor
 public class UsuarioMapperImpl implements UsuarioMapper {
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -24,7 +25,7 @@ public class UsuarioMapperImpl implements UsuarioMapper {
                 .uuid(UUID.randomUUID())
                 .usuario(usuarioDTO.getUsuario())
                 .password(passwordEncoder.encode(usuarioDTO.getPassword()))
-                .roles(usuarioDTO.getRoles().stream().map(Role::valueOf).collect(Collectors.toList()))
+                .roles(usuarioDTO.getRoles().stream().map(Role::valueOf).collect(Collectors.toSet()))
                 .build();
     }
 
@@ -33,7 +34,7 @@ public class UsuarioMapperImpl implements UsuarioMapper {
         return UsuarioDTO
                 .builder()
                 .usuario(usuario.getUsuario())
-                .roles(usuario.getRoles().stream().map(Role::getRole).collect(Collectors.toList()))
+                .roles(usuario.getRoles().stream().map(Role::getRole).collect(Collectors.toSet()))
                 .build();
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +38,7 @@ public class ContactoController {
 
     //GET
     @GetMapping("/")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public List<ContactoDTO> getContactos(@RequestParam(name="nombreYApellido", required = false) String nombreYApellido){
         log.info("Se busca todos las consultas o filtra por nombre y/o apellido");
         if (nombreYApellido == null || nombreYApellido.isBlank()){
@@ -50,6 +52,7 @@ public class ContactoController {
     }
 
     @GetMapping("/{idContacto}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ContactoDTO getContactoPorId(@PathVariable(value = "idContacto")UUID idContacto)
             throws NotFoundException {
         return contactoService.getContactoPorId(idContacto).orElseThrow(NotFoundException::new);
@@ -57,6 +60,7 @@ public class ContactoController {
 
     //DELETE
     @DeleteMapping("/idContacto")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> borrarConsulta(@PathVariable(name = "idContacto") UUID idContacto)
             throws NotFoundException {
         boolean isContactoBorrado = contactoService.borrarContacto(idContacto);
