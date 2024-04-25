@@ -27,6 +27,7 @@ public class UsuarioController {
 
     //GET
     @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UsuarioDTO> getUsuarios(@RequestParam(name = "name", required = false) String nombre){
         log.info("Busca por nombre, si no encuentra muestra todos");
         if (nombre == null || nombre.isBlank()){

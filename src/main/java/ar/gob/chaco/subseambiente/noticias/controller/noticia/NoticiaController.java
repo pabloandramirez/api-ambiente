@@ -70,6 +70,7 @@ public class NoticiaController {
     }
 
     @GetMapping("/{idNoticia}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public NoticiaDTO getNoticiaPorId(@PathVariable(name = "idNoticia")UUID idNoticia)
             throws NotFoundException {
         return noticiaService.getNoticiaPorId(idNoticia).orElseThrow(NotFoundException::new);

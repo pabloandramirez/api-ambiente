@@ -56,19 +56,13 @@ public class NoticiaServiceImpl implements NoticiaService {
     @Override
     public Optional<NoticiaDTO> getNoticiaPorId(UUID idNoticia) {
         Optional<Noticia> noticiaOptional = noticiaRepository.findById(idNoticia);
-        if (noticiaOptional.isPresent()){
-            return Optional.of(noticiaMapper.noticiaToNoticiaDTO(noticiaOptional.get()));
-        }
-        return Optional.empty();
+        return noticiaOptional.map(noticiaMapper::noticiaToNoticiaDTO);
     }
 
     @Override
     public Optional<NoticiaDTO> getNoticiaPorLong(Long idLong) {
         Optional<IdNoticia> idNoticiaOptional = idNoticiaRepository.findByIdentificador(idLong);
-        if (idNoticiaOptional.isPresent()){
-            return Optional.of(noticiaMapper.noticiaToNoticiaDTO(idNoticiaOptional.get().getNoticia()));
-        }
-        return Optional.empty();
+        return idNoticiaOptional.map(idNoticia -> noticiaMapper.noticiaToNoticiaDTO(idNoticia.getNoticia()));
     }
 
     @Override

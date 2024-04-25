@@ -10,6 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class UsuarioDTO {
+    private String uuid;
     private String usuario;
     private String password;
     private Set<String> roles;
