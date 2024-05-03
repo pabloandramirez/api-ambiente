@@ -10,6 +10,7 @@ import ar.gob.chaco.subseambiente.noticias.services.noticia.NoticiaService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -126,8 +127,8 @@ public class NoticiaServiceImpl implements NoticiaService {
         }
     }
 
-    private LocalDateTime getLocalDate(String localDate){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return LocalDateTime.parse(localDate, formato);
+    private LocalDate getLocalDate(String localDate){
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(localDate, formato);
     }
 }

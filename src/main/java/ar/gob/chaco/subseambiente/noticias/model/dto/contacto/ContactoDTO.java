@@ -14,4 +14,5 @@ public class ContactoDTO {
     private String telefono;
     private String mensaje;
     private String fechaConsulta;
+    private String estado;
 }

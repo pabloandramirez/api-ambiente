@@ -1,5 +1,6 @@
 package ar.gob.chaco.subseambiente.noticias.mapper.contacto.impl;
 
+import ar.gob.chaco.subseambiente.noticias.bootstrap.enums.EstadoConsulta;
 import ar.gob.chaco.subseambiente.noticias.domain.Contacto;
 import ar.gob.chaco.subseambiente.noticias.mapper.contacto.ContactoMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
@@ -22,6 +23,7 @@ public class ContactoMapperImpl implements ContactoMapper {
                 .telefono(contactoDTO.getTelefono())
                 .mensaje(contactoDTO.getMensaje())
                 .fechaConsulta(LocalDateTime.now())
+                .estadoConsulta(EstadoConsulta.PENDIENTE)
                 .build();
     }
 
@@ -34,6 +36,7 @@ public class ContactoMapperImpl implements ContactoMapper {
                 .telefono(contacto.getTelefono())
                 .mensaje(contacto.getMensaje())
                 .fechaConsulta(getLocalDate(contacto.getFechaConsulta()))
+                .estado(getEstadoConsulta(contacto.getEstadoConsulta()))
                 .build();
     }
 
@@ -42,5 +45,9 @@ public class ContactoMapperImpl implements ContactoMapper {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
 
         return localDateTime.format(formato);
+    }
+
+    private String getEstadoConsulta(EstadoConsulta estado){
+        return estado.getEstado();
     }
 }

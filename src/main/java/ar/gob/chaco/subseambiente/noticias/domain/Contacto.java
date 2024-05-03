@@ -1,5 +1,6 @@
 package ar.gob.chaco.subseambiente.noticias.domain;
 
+import ar.gob.chaco.subseambiente.noticias.bootstrap.enums.EstadoConsulta;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,6 +46,9 @@ public class Contacto {
     private String mensaje;
 
     private LocalDateTime fechaConsulta;
+
+    @Column(name = "consulta_estado", nullable = false, length = 36)
+    private EstadoConsulta estadoConsulta;
 
     @Override
     public String toString() {

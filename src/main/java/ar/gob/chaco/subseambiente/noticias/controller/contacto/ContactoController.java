@@ -59,7 +59,7 @@ public class ContactoController {
     }
 
     //DELETE
-    @DeleteMapping("/idContacto")
+    @DeleteMapping("/{idContacto}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> borrarConsulta(@PathVariable(name = "idContacto") UUID idContacto)
             throws NotFoundException {
