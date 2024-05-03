@@ -3,6 +3,7 @@ package ar.gob.chaco.subseambiente.noticias.controller.contacto;
 import ar.gob.chaco.subseambiente.noticias.domain.Contacto;
 import ar.gob.chaco.subseambiente.noticias.exceptions.NotFoundException;
 import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
+import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import ar.gob.chaco.subseambiente.noticias.services.contacto.ContactoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,22 @@ public class ContactoController {
     public ContactoDTO getContactoPorId(@PathVariable(value = "idContacto")UUID idContacto)
             throws NotFoundException {
         return contactoService.getContactoPorId(idContacto).orElseThrow(NotFoundException::new);
+    }
+
+    //UPDATE
+    @PutMapping("/{idContacto}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
+    public ResponseEntity<Void> actualizarContacto(@PathVariable(name = "idContacto") UUID idContacto,
+                                                  @RequestBody ContactoDTO contactoActualizadoDTO)
+            throws NotFoundException {
+        Optional<ContactoDTO> contactoDTO = contactoService.actualizarContacto(idContacto, contactoActualizadoDTO);
+        if (contactoDTO.isEmpty()){
+            log.info("Noticia no encontrada");
+            throw new NotFoundException();
+        } else {
+            log.info("Noticia actualizada");
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 
     //DELETE

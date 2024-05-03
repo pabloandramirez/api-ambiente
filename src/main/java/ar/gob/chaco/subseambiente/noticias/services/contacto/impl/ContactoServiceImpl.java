@@ -1,7 +1,9 @@
 package ar.gob.chaco.subseambiente.noticias.services.contacto.impl;
 
 
+import ar.gob.chaco.subseambiente.noticias.bootstrap.enums.EstadoConsulta;
 import ar.gob.chaco.subseambiente.noticias.domain.Contacto;
+import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.mapper.contacto.ContactoMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
 import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
@@ -56,12 +58,41 @@ public class ContactoServiceImpl implements ContactoService {
     }
 
     @Override
+    public Optional<ContactoDTO> actualizarContacto(UUID idContacto, ContactoDTO contactoActualizadoDTO) {
+        Optional<Contacto> contactoOptional = contactoRepository.findById(idContacto);
+        if (contactoOptional.isPresent()){
+            actualizacionNoticia(contactoOptional.get(), contactoActualizadoDTO);
+            contactoRepository.saveAndFlush(contactoOptional.get());
+            return Optional.of(contactoMapper.contactoToContactoDTO(contactoOptional.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public boolean borrarContacto(UUID idContacto) {
         if (contactoRepository.existsById(idContacto)){
             contactoRepository.deleteById(idContacto);
             return true;
         }
         return false;
+    }
+
+    private void actualizacionNoticia(Contacto contacto, ContactoDTO contactoActualizadoDTO){
+        if (contactoActualizadoDTO.getEstado() != null && !contactoActualizadoDTO.getEstado().isBlank()){
+            contacto.setEstadoConsulta(getEstadoConsulta(contactoActualizadoDTO.getEstado()));
+        }
+    }
+
+    private EstadoConsulta getEstadoConsulta(String estadoString){
+        if(!estadoString.isBlank()){
+            for (EstadoConsulta estado: EstadoConsulta.values()) {
+                if (estado.getEstado().equalsIgnoreCase(estadoString)) {
+                    return estado;
+                }
+            }
+        }
+        return null;
     }
 
 }
