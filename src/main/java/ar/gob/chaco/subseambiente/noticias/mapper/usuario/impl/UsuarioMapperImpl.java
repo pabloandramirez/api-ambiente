@@ -5,7 +5,6 @@ import ar.gob.chaco.subseambiente.noticias.domain.Usuario;
 import ar.gob.chaco.subseambiente.noticias.mapper.usuario.UsuarioMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.usuario.UsuarioDTO;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

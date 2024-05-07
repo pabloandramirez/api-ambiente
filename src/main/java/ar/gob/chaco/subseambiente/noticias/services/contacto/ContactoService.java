@@ -2,7 +2,6 @@ package ar.gob.chaco.subseambiente.noticias.services.contacto;
 
 import ar.gob.chaco.subseambiente.noticias.domain.Contacto;
 import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
-import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -20,6 +19,8 @@ public interface ContactoService {
     List<ContactoDTO> getContactosPorNombreApellido(String nombreYApellido);
 
     Optional<ContactoDTO> getContactoPorId(UUID idContacto);
+
+    List<ContactoDTO> getContactosPaginados(int indiceInicio, int contactosPorPagina);
 
     //PUT
     Optional<ContactoDTO> actualizarContacto(UUID idContacto, ContactoDTO contactoActualizadoDTO);

@@ -9,7 +9,6 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,7 +44,10 @@ public class Contacto {
     @Column(length = 500, columnDefinition = "varchar(500)", updatable = true, nullable = false)
     private String mensaje;
 
-    private LocalDateTime fechaConsulta;
+    @Column(length = 500, columnDefinition = "varchar(500)", updatable = true, nullable = true)
+    private String observaciones;
+
+    private LocalDate fechaConsulta;
 
     @Column(name = "consulta_estado", nullable = false, length = 36)
     private EstadoConsulta estadoConsulta;

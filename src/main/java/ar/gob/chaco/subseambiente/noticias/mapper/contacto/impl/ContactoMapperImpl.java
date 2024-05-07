@@ -22,7 +22,7 @@ public class ContactoMapperImpl implements ContactoMapper {
                 .email(contactoDTO.getEmail())
                 .telefono(contactoDTO.getTelefono())
                 .mensaje(contactoDTO.getMensaje())
-                .fechaConsulta(LocalDateTime.now())
+                .fechaConsulta(LocalDate.now())
                 .estadoConsulta(EstadoConsulta.PENDIENTE)
                 .build();
     }
@@ -30,21 +30,24 @@ public class ContactoMapperImpl implements ContactoMapper {
     @Override
     public ContactoDTO contactoToContactoDTO(Contacto contacto) {
         return ContactoDTO.builder()
+                .id(contacto.getUuid().toString())
                 .asunto(contacto.getAsunto())
                 .nombreYApellido(contacto.getNombreYApellido())
                 .email(contacto.getEmail())
                 .telefono(contacto.getTelefono())
                 .mensaje(contacto.getMensaje())
                 .fechaConsulta(getLocalDate(contacto.getFechaConsulta()))
+                .fechaConsultaDate(contacto.getFechaConsulta())
                 .estado(getEstadoConsulta(contacto.getEstadoConsulta()))
+                .observaciones(contacto.getObservaciones())
                 .build();
     }
 
 
-    private String getLocalDate(LocalDateTime localDateTime){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+    private String getLocalDate(LocalDate localDate){
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        return localDateTime.format(formato);
+        return localDate.format(formato);
     }
 
     private String getEstadoConsulta(EstadoConsulta estado){

@@ -3,10 +3,8 @@ package ar.gob.chaco.subseambiente.noticias.services.contacto.impl;
 
 import ar.gob.chaco.subseambiente.noticias.bootstrap.enums.EstadoConsulta;
 import ar.gob.chaco.subseambiente.noticias.domain.Contacto;
-import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.mapper.contacto.ContactoMapper;
 import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
-import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import ar.gob.chaco.subseambiente.noticias.repository.contacto.ContactoRepository;
 import ar.gob.chaco.subseambiente.noticias.services.contacto.ContactoService;
 import lombok.AllArgsConstructor;
@@ -33,7 +31,7 @@ public class ContactoServiceImpl implements ContactoService {
         for (Contacto contacto: contactoRepository.findAll()){
             contactoDTOList.add(contactoMapper.contactoToContactoDTO(contacto));
         }
-        contactoDTOList.sort(Comparator.comparing(ContactoDTO::getFechaConsulta).reversed());
+        contactoDTOList.sort(Comparator.comparing(ContactoDTO::getFechaConsultaDate).reversed());
         return contactoDTOList;
     }
 
@@ -58,10 +56,28 @@ public class ContactoServiceImpl implements ContactoService {
     }
 
     @Override
+    public List<ContactoDTO> getContactosPaginados(int indiceInicio, int contactosPorPagina) {
+        // Obtener todas las consultas desde la base de datos
+        List<ContactoDTO> todosLosContactos = new ArrayList<>(); // Suponiendo que utilizas Spring Data JPA
+
+        for (Contacto contacto: contactoRepository.findAll()) {
+            todosLosContactos.add(contactoMapper.contactoToContactoDTO(contacto));
+        }
+
+        todosLosContactos.sort(Comparator.comparing(ContactoDTO::getFechaConsulta).reversed());
+
+        // Calcular el índice final de las noticias en función de la página y la cantidad de noticias por página
+        int indiceFinal = Math.min(indiceInicio + contactosPorPagina, todosLosContactos.size());
+
+        // Devolver las noticias correspondientes a la página solicitada
+        return todosLosContactos.subList(indiceInicio, indiceFinal);
+    }
+
+    @Override
     public Optional<ContactoDTO> actualizarContacto(UUID idContacto, ContactoDTO contactoActualizadoDTO) {
         Optional<Contacto> contactoOptional = contactoRepository.findById(idContacto);
         if (contactoOptional.isPresent()){
-            actualizacionNoticia(contactoOptional.get(), contactoActualizadoDTO);
+            actualizacionContacto(contactoOptional.get(), contactoActualizadoDTO);
             contactoRepository.saveAndFlush(contactoOptional.get());
             return Optional.of(contactoMapper.contactoToContactoDTO(contactoOptional.get()));
         } else {
@@ -78,9 +94,12 @@ public class ContactoServiceImpl implements ContactoService {
         return false;
     }
 
-    private void actualizacionNoticia(Contacto contacto, ContactoDTO contactoActualizadoDTO){
+    private void actualizacionContacto(Contacto contacto, ContactoDTO contactoActualizadoDTO){
         if (contactoActualizadoDTO.getEstado() != null && !contactoActualizadoDTO.getEstado().isBlank()){
             contacto.setEstadoConsulta(getEstadoConsulta(contactoActualizadoDTO.getEstado()));
+        }
+        if (contactoActualizadoDTO.getObservaciones() != null && !contactoActualizadoDTO.getObservaciones().isBlank()){
+            contacto.setObservaciones(contactoActualizadoDTO.getObservaciones());
         }
     }
 

@@ -6,7 +6,6 @@ import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 

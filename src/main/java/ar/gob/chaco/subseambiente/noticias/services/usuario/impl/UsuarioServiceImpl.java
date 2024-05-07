@@ -1,10 +1,8 @@
 package ar.gob.chaco.subseambiente.noticias.services.usuario.impl;
 
 import ar.gob.chaco.subseambiente.noticias.bootstrap.enums.Role;
-import ar.gob.chaco.subseambiente.noticias.domain.Noticia;
 import ar.gob.chaco.subseambiente.noticias.domain.Usuario;
 import ar.gob.chaco.subseambiente.noticias.mapper.usuario.UsuarioMapper;
-import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import ar.gob.chaco.subseambiente.noticias.model.dto.usuario.UsuarioDTO;
 import ar.gob.chaco.subseambiente.noticias.repository.usuario.UsuarioRepository;
 import ar.gob.chaco.subseambiente.noticias.services.usuario.UsuarioService;

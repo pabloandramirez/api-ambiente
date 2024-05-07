@@ -3,7 +3,6 @@ package ar.gob.chaco.subseambiente.noticias.model.dto.noticia;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter

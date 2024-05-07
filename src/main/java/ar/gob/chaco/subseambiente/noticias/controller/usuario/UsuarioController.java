@@ -2,7 +2,6 @@ package ar.gob.chaco.subseambiente.noticias.controller.usuario;
 
 import ar.gob.chaco.subseambiente.noticias.domain.Usuario;
 import ar.gob.chaco.subseambiente.noticias.exceptions.NotFoundException;
-import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import ar.gob.chaco.subseambiente.noticias.model.dto.usuario.UsuarioDTO;
 import ar.gob.chaco.subseambiente.noticias.services.usuario.UsuarioService;
 import lombok.RequiredArgsConstructor;

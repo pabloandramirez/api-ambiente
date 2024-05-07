@@ -3,11 +3,9 @@ package ar.gob.chaco.subseambiente.noticias.controller.contacto;
 import ar.gob.chaco.subseambiente.noticias.domain.Contacto;
 import ar.gob.chaco.subseambiente.noticias.exceptions.NotFoundException;
 import ar.gob.chaco.subseambiente.noticias.model.dto.contacto.ContactoDTO;
-import ar.gob.chaco.subseambiente.noticias.model.dto.noticia.NoticiaDTO;
 import ar.gob.chaco.subseambiente.noticias.services.contacto.ContactoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +55,19 @@ public class ContactoController {
     public ContactoDTO getContactoPorId(@PathVariable(value = "idContacto")UUID idContacto)
             throws NotFoundException {
         return contactoService.getContactoPorId(idContacto).orElseThrow(NotFoundException::new);
+    }
+
+    @GetMapping("/paginado")
+    public List<ContactoDTO> getContactosPaginado(@RequestParam(name = "pagina", required = true) int pagina,
+                                                @RequestParam(name = "consultasPorPagina", required = true) int consultasPorPagina){
+        log.info("Se muestra los contactos en formato de paginado");
+        // Calcular el índice de inicio de las noticias en función de la página y la cantidad de noticias por página
+        int indiceInicio = (pagina - 1) * consultasPorPagina;
+
+        // Obtener las noticias para la página actual
+
+        return contactoService.getContactosPaginados(indiceInicio, consultasPorPagina);
+
     }
 
     //UPDATE
