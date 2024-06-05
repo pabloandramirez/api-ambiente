@@ -14,6 +14,7 @@ public class NormativaMapperImpl implements NormativaMapper {
     public Normativa normativaDTOtoNormativa(NormativaDTO normativaDTO) {
         return Normativa.builder()
                 .uuid(UUID.randomUUID())
+                .titulo(normativaDTO.getTitulo())
                 .direccion(getDireccion(normativaDTO.getDireccion()))
                 .urlDocumento(normativaDTO.getUrlDocumento())
                 .build();
@@ -23,6 +24,7 @@ public class NormativaMapperImpl implements NormativaMapper {
     public NormativaDTO normativaToNormativaDTO(Normativa normativa) {
         return NormativaDTO.builder()
                 .id(normativa.getUuid().toString())
+                .titulo(normativa.getTitulo())
                 .direccion(getDireccion(normativa.getDireccion()))
                 .urlDocumento(normativa.getUrlDocumento())
                 .build();

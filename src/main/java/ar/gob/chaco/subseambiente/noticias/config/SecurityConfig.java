@@ -51,7 +51,7 @@ public class SecurityConfig{
                         .requestMatchers("/noticia/").permitAll()
                         .requestMatchers("/noticia/noticiaPorLong/**").permitAll()
                         .requestMatchers("/noticia/paginado**").permitAll()
-                        .requestMatchers("/normativa/").permitAll()
+                        .requestMatchers("/normativa/**").permitAll()
                         .requestMatchers("/normativa/paginado**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/contacto").permitAll()
                         .anyRequest().authenticated()

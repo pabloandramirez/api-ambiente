@@ -9,6 +9,7 @@ import lombok.*;
 @Builder
 public class NormativaDTO {
     String id;
+    String titulo;
     String direccion;
     String urlDocumento;
 }

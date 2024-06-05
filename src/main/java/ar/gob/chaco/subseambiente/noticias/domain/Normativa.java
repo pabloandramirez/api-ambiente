@@ -27,7 +27,10 @@ public class Normativa {
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID uuid;
 
-    @Column(name = "direccion", nullable = false, length = 100)
+    @Column(name = "titulo", nullable = false, length = 150)
+    private String titulo;
+
+    @Column(name = "direccion", nullable = true, length = 100)
     private Direccion direccion;
 
     @Column(length = 500, columnDefinition = "varchar(500)", updatable = true, nullable = false)

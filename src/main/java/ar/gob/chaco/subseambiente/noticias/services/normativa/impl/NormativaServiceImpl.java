@@ -92,6 +92,10 @@ public class NormativaServiceImpl implements NormativaService {
 
     private void actualizarNormativa(Normativa normativa, NormativaDTO normativaDTO){
 
+        if (normativaDTO.getTitulo()!=null && !normativaDTO.getTitulo().isBlank()){
+            normativa.setTitulo(normativaDTO.getTitulo());
+        }
+
         if (normativaDTO.getDireccion()!=null && !normativaDTO.getDireccion().isBlank()){
             normativa.setDireccion(getDireccion(normativaDTO.getDireccion()));
         }
